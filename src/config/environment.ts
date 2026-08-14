@@ -1,6 +1,6 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
-process.loadEnvFile();
+process.loadEnvFile()
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']),
@@ -11,6 +11,6 @@ const envSchema = z.object({
   DATABASE_URL: z.string(),
 })
 
-export const environment = envSchema.parse(process.env);
+export const environment = envSchema.parse(process.env)
 
-export type Environment = z.infer<typeof envSchema>;
+export type Environment = z.infer<typeof envSchema>
