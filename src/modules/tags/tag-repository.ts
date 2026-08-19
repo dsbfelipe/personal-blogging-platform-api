@@ -1,4 +1,5 @@
 import type { PrismaClient } from '../../../generated/prisma/client'
+import handlePrismaError from '../../helpers/handle-prisma-error.js'
 import type { TagPayload } from './tag-schemas.js'
 
 const createTagRepository = (prisma: PrismaClient) => {
@@ -9,29 +10,51 @@ const createTagRepository = (prisma: PrismaClient) => {
 
   const findMany = () => prisma.tag.findMany()
 
-  const create = (body: TagPayload) =>
-    prisma.tag.create({
-      data: {
-        name: body.name,
-      },
-    })
+  const create = async (body: TagPayload) => {
+    try {
+      return await prisma.tag.create({
+        data: {
+          name: body.name,
+        },
+      })
+    } catch (error) {
+      handlePrismaError(error, {
+        conflict: 'A tag with this name already exists',
+      })
+    }
+  }
 
-  const update = (id: number, body: TagPayload) =>
-    prisma.tag.update({
-      where: {
-        id: id,
-      },
-      data: {
-        name: body.name,
-      },
-    })
+  const update = async (id: number, body: TagPayload) => {
+    try {
+      return await prisma.tag.update({
+        where: {
+          id: id,
+        },
+        data: {
+          name: body.name,
+        },
+      })
+    } catch (error) {
+      handlePrismaError(error, {
+        conflict: 'A tag with this name already exists',
+        notFound: 'Tag not found',
+      })
+    }
+  }
 
-  const destroy = (id: number) =>
-    prisma.tag.delete({
-      where: {
-        id: id,
-      },
-    })
+  const destroy = async (id: number) => {
+    try {
+      return await prisma.tag.delete({
+        where: {
+          id: id,
+        },
+      })
+    } catch (error) {
+      handlePrismaError(error, {
+        notFound: 'Tag not found',
+      })
+    }
+  }
 
   return {
     findById,

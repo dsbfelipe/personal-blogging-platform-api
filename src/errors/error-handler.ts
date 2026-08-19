@@ -10,10 +10,11 @@ export const errorHandler = (
   if (error.validation) {
     return reply.status(400).send({
       message: 'Invalid request',
-      details: error.validation.map((validatinError) => ({
+      details: error.validation.map((validationError) => ({
         field:
-          validatinError.instancePath || validatinError.params?.missingProperty,
-        message: validatinError.message,
+          validationError.instancePath ||
+          validationError.params?.missingProperty,
+        message: validationError.message,
       })),
     })
   }
