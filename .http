@@ -1,0 +1,26 @@
+@baseUrl = http://localhost:3000
+
+### Get all tags
+GET {{baseUrl}}/tags
+
+### Get tag by ID
+GET {{baseUrl}}/tags/1
+
+### Create tag
+POST {{baseUrl}}/tags
+Content-Type: application/json
+
+{
+  "name": "Anime"
+}
+
+### Update tag
+PUT {{baseUrl}}/tags/7
+Content-Type: application/json
+
+{
+  "name": "Games"
+}
+
+### Delete tag
+DELETE  {{baseUrl}}/tags/7
