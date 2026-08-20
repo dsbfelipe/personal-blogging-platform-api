@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ### Update tag
-PUT {{baseUrl}}/tags/7
+PATCH {{baseUrl}}/tags/7
 Content-Type: application/json
 
 {

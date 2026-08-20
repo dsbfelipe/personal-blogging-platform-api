@@ -44,7 +44,7 @@ const tagRoutes: FastifyPluginAsync<TagRouteOptions> = async (server, opts) => {
     handler: opts.controller.create,
   })
 
-  fastify.put('/tags/:id', {
+  fastify.patch('/tags/:id', {
     schema: {
       params: tagParamsSchema,
       body: tagPayloadSchema,
