@@ -11,21 +11,18 @@ const handlePrismaError = (
   error: unknown,
   messages: PrismaErrorMessages = {},
 ): never => {
-  if (
-    error instanceof Prisma.PrismaClientKnownRequestError &&
-    error.code === 'P2002'
-  ) {
-    throw new ConflictError(messages.conflict ?? 'Resource already exists')
+  if (!(error instanceof Prisma.PrismaClientKnownRequestError)) {
+    throw error
   }
 
-  if (
-    error instanceof Prisma.PrismaClientKnownRequestError &&
-    error.code === 'P2025'
-  ) {
-    throw new NotFoundError(messages.notFound ?? 'Resource not found')
+  switch (error.code) {
+    case 'P2002':
+      throw new ConflictError(messages.conflict ?? 'Resource already exists')
+    case 'P2025':
+      throw new NotFoundError(messages.notFound ?? 'Resource not found')
+    default:
+      throw error
   }
-
-  throw error
 }
 
 export default handlePrismaError

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-process.loadEnvFile()
+process.loadEnvFile(process.env.NODE_ENV === 'test' ? '.env.test' : '.env')
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']),
@@ -12,5 +12,4 @@ const envSchema = z.object({
 })
 
 export const environment = envSchema.parse(process.env)
-
 export type Environment = z.infer<typeof envSchema>

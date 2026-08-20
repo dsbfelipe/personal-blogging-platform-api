@@ -7,6 +7,7 @@ import prismaPlugin from './plugins/prisma.js'
 import { environment } from './config/environment.js'
 import { errorHandler } from './errors/error-handler.js'
 import tagsModule from './modules/tags/index.js'
+import healthRoutes from './routes/health-routes.js'
 
 const envToLogger = {
   development: {
@@ -32,6 +33,7 @@ const createServer = () => {
   fastify.setSerializerCompiler(serializerCompiler)
 
   fastify.register(prismaPlugin)
+  fastify.register(healthRoutes)
   fastify.register(tagsModule)
 
   return fastify
