@@ -44,7 +44,7 @@ const createTagRepository = (prisma: PrismaClient) => {
 
   const destroy = async (id: number) => {
     try {
-      return await prisma.tag.delete({
+      await prisma.tag.delete({
         where: {
           id: id,
         },

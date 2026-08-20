@@ -1,12 +1,9 @@
-import { test, expect, beforeAll, afterAll } from 'vitest'
+import { test, expect, afterAll } from 'vitest'
 import createTestServer from '../../helpers/create-test-server.js'
 import healthRoutes from '../../../src/routes/health-routes.js'
 
-let server: Awaited<ReturnType<typeof createTestServer>>
+const server = await createTestServer(healthRoutes)
 
-beforeAll(async () => {
-  server = await createTestServer(healthRoutes)
-})
 afterAll(async () => {
   await server.close()
 })

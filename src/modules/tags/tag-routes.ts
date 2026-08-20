@@ -60,7 +60,7 @@ const tagRoutes: FastifyPluginAsync<TagRouteOptions> = async (server, opts) => {
     schema: {
       params: tagParamsSchema,
       response: {
-        204: z.void(),
+        204: z.undefined(),
         default: errorSchema,
       },
     },
