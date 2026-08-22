@@ -18,6 +18,8 @@ model Post {
   content      String
   published_at DateTime      @default(now())
   tags         TagsOnPosts[]
+
+  @@index([published_at])
 }
 
 model Tag {
@@ -27,10 +29,11 @@ model Tag {
 }
 
 model TagsOnPosts {
-  post   Post @relation(fields: [postId], references: [id])
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId Int
   tag    Tag  @relation(fields: [tagId], references: [id])
   tagId  Int
 
   @@id([postId, tagId])
+  @@index([tagId])
 }

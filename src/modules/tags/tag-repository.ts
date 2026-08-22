@@ -10,6 +10,15 @@ const createTagRepository = (prisma: PrismaClient) => {
 
   const findMany = () => prisma.tag.findMany()
 
+  const findByNames = (names: string[]) =>
+    prisma.tag.findMany({
+      where: {
+        name: {
+          in: names,
+        },
+      },
+    })
+
   const create = async (body: TagPayload) => {
     try {
       return await prisma.tag.create({
@@ -59,6 +68,7 @@ const createTagRepository = (prisma: PrismaClient) => {
   return {
     findById,
     findMany,
+    findByNames,
     create,
     update,
     destroy,
